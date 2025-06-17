@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensor-producer
+  labels:
+    app: sensor-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sensor-producer
+  template:
+    metadata:
+      labels:
+        app: sensor-producer
+    spec:
+      containers:
+      - name: sensor-producer
+        image: shmador/sensor-producer:latest
+        imagePullPolicy: Always
+        env:
+        - name: BOOTSTRAP_SERVERS
+          value: "my-cluster-kafka-bootstrap:9092"
+        - name: NUM_SENSORS
+          value: "5"
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+

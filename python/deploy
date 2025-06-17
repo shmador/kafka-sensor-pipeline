@@ -1,0 +1,3 @@
+docker build -t shmador/sensor-producer:alt .
+docker push shmador/sensor-producer:alt
+kubectl rollout restart deployment/sensor-producer -n kafka
